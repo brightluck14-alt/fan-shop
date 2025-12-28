@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Exclusive Music Pack",
+    "description": "Unreleased tracks and bonus content made only for supporters.",
+    "price": "5000 USDT",
+    "type": "Digital",
+    "image": "images/music-pack.jpg"
+  },
+  {
+    "name": "Official Merch",
+    "description": "Limited edition merch. Once it’s gone, it’s gone forever.",
+    "price": "10000 USDT",
+    "type": "Physical",
+    "image": "images/merch.jpg"
+  }
+]

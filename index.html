@@ -31,46 +31,73 @@
 
     section {
       padding: 50px 20px;
-      max-width: 900px;
+      max-width: 1100px;
       margin: auto;
     }
 
     h2 {
       font-size: 2rem;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       color: #ff5fa2;
+      text-align: center;
     }
 
-    .products {
+    /* PRODUCT PANEL */
+    .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
     }
 
-    .card {
+    .product-card {
       background: #1a1a1a;
-      border-radius: 14px;
-      padding: 25px;
+      border-radius: 16px;
+      padding: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      transition: transform 0.25s ease;
     }
 
-    .card h3 {
-      margin-top: 0;
+    .product-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .product-card h3 {
+      margin: 10px 0;
     }
 
     .price {
-      margin-top: 15px;
       font-size: 1.3rem;
       color: #00ffcc;
       font-weight: bold;
+      margin: 12px 0;
     }
 
+    .buy-btn {
+      display: inline-block;
+      padding: 10px 16px;
+      background: #00ffcc;
+      color: #000;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    /* PAYMENT BOX */
     .pay-box {
       background: #111;
       border-radius: 14px;
       padding: 30px;
       line-height: 1.8;
       font-size: 1rem;
+      max-width: 800px;
+      margin: auto;
     }
 
     .highlight {
@@ -91,29 +118,16 @@
 <body>
 
 <header>
-  <h1>YOUR ARTIST NAME</h1> <!-- CHANGE THIS -->
+  <h1>YOUR ARTIST NAME</h1>
   <p>Music • Merch • Exclusive Drops</p>
 </header>
 
 <section>
   <h2>🔥 Available for Real Fans</h2>
-
-  <div class="products">
-    <div class="card">
-      <h3>Exclusive Music Pack</h3>
-      <p>Unreleased tracks and bonus content made only for supporters.</p>
-      <div class="price">20 USDT</div>
-    </div>
-
-    <div class="card">
-      <h3>Official Merch</h3>
-      <p>Limited edition merch. Once it’s gone, it’s gone forever.</p>
-      <div class="price">35 USDT</div>
-    </div>
-  </div>
+  <div id="products" class="products-grid"></div>
 </section>
 
-<section>
+<section id="how-to-pay">
   <h2>💸 How to Pay with Crypto</h2>
 
   <div class="pay-box">
@@ -123,13 +137,13 @@
     <span class="highlight">Trust Wallet</span> or 
     <span class="highlight">MetaMask</span>.<br><br>
 
-    👉 Buy <span class="highlight">USDT (Tether)</span> and make sure you select the 
+    👉 Buy <span class="highlight">USDT (Tether)</span> and select the 
     <span class="highlight">TRON (TRC20)</span> network.<br><br>
 
-    👉 On this page, copy the payment address shown at checkout.<br><br>
+    👉 Copy the payment address shown below on this site.<br><br>
 
-    👉 Open your wallet → Tap <span class="highlight">Send</span> → Paste the address → 
-    Enter the amount → Confirm 🔥<br><br>
+    👉 Open your wallet → Tap <span class="highlight">Send</span> → 
+    Paste the address → Enter the amount → Confirm 🔥<br><br>
 
     ⏱ Payment confirms in 1–5 minutes.<br><br>
 
@@ -140,17 +154,39 @@
 
 <section>
   <h2>📦 After Payment</h2>
-
-  <p>
-    🎧 Digital products → Access will be sent after confirmation.<br><br>
-    👕 Physical products → You’ll be contacted for shipping details.<br><br>
-    If you’re unsure at any point, message me before sending ❤️
+  <p style="text-align:center; line-height:1.8;">
+    🎧 Digital products → Access sent after confirmation.<br><br>
+    👕 Physical products → You’ll be contacted for shipping.<br><br>
+    If unsure, message me before sending ❤️
   </p>
 </section>
 
 <footer>
   © 2025 YOUR ARTIST NAME • Thank you for supporting the music 🎶
 </footer>
+
+<script>
+fetch('products.json')
+  .then(res => res.json())
+  .then(products => {
+    const container = document.getElementById('products');
+
+    products.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p>${product.description}</p>
+        <div class="price">${product.price}</div>
+        <a href="#how-to-pay" class="buy-btn">How to Pay</a>
+      `;
+
+      container.appendChild(card);
+    });
+  });
+</script>
 
 </body>
 </html>
